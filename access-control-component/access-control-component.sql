@@ -30,6 +30,7 @@ DECLARE user_id INT DEFAULT 0;
 DECLARE EXIT HANDLER FOR SQLEXCEPTION
    BEGIN
             ROLLBACK;
+            RESIGNAL;
         END;
     START TRANSACTION;
         INSERT INTO users (name, password) VALUES (p_name, p_password);
