@@ -1,10 +1,10 @@
-import { FormController } from '../controller/FormController.js';
+import { CreateUserFormController } from '../controller/CreateUserFormController.js';
 
-class FormView extends HTMLElement {
+class CreateUserFormView extends HTMLElement {
     constructor(model) {
         super();
         this.model = model;
-        this.controller = new FormController(this, this.model);
+        this.controller = new CreateUserFormController(this, this.model);
 
         this.form = document.createElement('form');
         this.form.classList.add('w3-container', 'w3-light-grey', 'w3-leftbar', 'w3-border', 'w3-card-4', 'w3-bottombar');
@@ -61,6 +61,6 @@ class FormView extends HTMLElement {
     }
 }
 
-customElements.define('x-form-view', FormView);
+customElements.define('x-form-view', CreateUserFormView);
 
-export { FormView };
+export { CreateUserFormView };

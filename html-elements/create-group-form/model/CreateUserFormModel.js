@@ -1,4 +1,4 @@
-class FormModel {
+class CreateUserFormModel {
     constructor() {
     }
 
@@ -8,4 +8,4 @@ class FormModel {
     }
 }
 
-export { FormModel };
+export { CreateUserFormModel };

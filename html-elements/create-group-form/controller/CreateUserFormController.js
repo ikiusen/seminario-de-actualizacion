@@ -1,4 +1,4 @@
-class FormController {
+class CreateUserFormController {
     constructor(view, model) {
         this.view = view;
         this.model = model;
@@ -10,4 +10,4 @@ class FormController {
 
 }
 
-export { FormController };
+export { CreateUserFormController };
