@@ -26,14 +26,13 @@ INSERT INTO groups_members (user_id, group_id) VALUES (p_user_id, p_group_id);;
 CREATE PROCEDURE `usp_create_user`(IN `p_name` varchar(45), IN `p_password` varchar(45))
 BEGIN
 DECLARE user_id INT DEFAULT 0;
-
 DECLARE EXIT HANDLER FOR SQLEXCEPTION
    BEGIN
             ROLLBACK;
             RESIGNAL;
-        END;
+   END;
     START TRANSACTION;
-        INSERT INTO users (name, password) VALUES (p_name, p_password);
+        INSERT INTO users(name, password) VALUES (p_name, p_password);
         SET user_id = LAST_INSERT_ID();
         CALL usp_create_group_member(user_id, 3);
     COMMIT;
@@ -150,8 +149,10 @@ CREATE TABLE `groups_members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `groups_members` (`user_id`, `group_id`) VALUES
-(1,	3),
-(3,	3);
+(8,	3),
+(11,	3),
+(14,	3),
+(19,	3);
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -163,8 +164,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `users` (`id`, `name`, `password`) VALUES
-(1,	'Thiago',	'j1l3h61l5g'),
-(3,	'Laureano',	'hdsufh2g');
+(8,	'Gabriel',	'asdjfhiaosñghasñg'),
+(11,	'Juan',	'2341234123'),
+(14,	'Romina',	'214144'),
+(19,	'Ezequiel',	'soifhdasñfjhgaf');
 
 DROP TABLE IF EXISTS `users_information`;
 CREATE TABLE `users_information` (
@@ -175,7 +178,5 @@ CREATE TABLE `users_information` (
   CONSTRAINT `users_information_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `users_information` (`user_id`, `dni`, `date_of_birth`) VALUES
-(1,	'42366235',	'2000-01-22');
 
--- 2022-07-06 20:39:43
+-- 2022-07-17 13:57:48
