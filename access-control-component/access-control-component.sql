@@ -15,7 +15,7 @@ CREATE PROCEDURE `usp_create_action`(IN `p_name` varchar(45), IN `p_description`
 INSERT INTO actions (name, description) VALUES (p_name, p_description);;
 
 CREATE PROCEDURE `usp_create_group`(IN `p_name` varchar(45), IN `p_description` varchar(128))
-INSERT INTO groups (name, description) VALUES (p_name, p_description);;
+INSERT INTO `groups` (name, description) VALUES (p_name, p_description);;
 
 CREATE PROCEDURE `usp_create_group_access`(IN `p_group_id` int, IN `p_action_id` int)
 INSERT INTO groups_accesses (group_id, action_id) VALUES (p_group_id, p_action_id);;
@@ -45,7 +45,7 @@ CREATE PROCEDURE `usp_delete_action`(IN `p_id` int)
 DELETE FROM actions WHERE id = p_id;;
 
 CREATE PROCEDURE `usp_delete_group`(IN `p_id` int)
-DELETE FROM groups WHERE id = p_id;;
+DELETE FROM `groups` WHERE id = p_id;;
 
 CREATE PROCEDURE `usp_delete_group_access`(IN `p_group_id` int, IN `p_action_id` int)
 DELETE FROM groups_accesses WHERE group_id = p_group_id AND actions_id = p_action_id;;
@@ -63,10 +63,10 @@ CREATE PROCEDURE `usp_get_all_actions`()
 SELECT name, description FROM actions;;
 
 CREATE PROCEDURE `usp_get_all_groups`()
-SELECT name, description FROM groups;;
+SELECT name, description FROM `groups`;;
 
 CREATE PROCEDURE `usp_get_all_groups_accesses`()
-SELECT groups.name, actions.name, actions.description FROM groups
+SELECT groups.name, actions.name, actions.description FROM `groups`
 INNER JOIN groups_accesses ON groups.id = groups_accesses.group_id
 INNER JOIN actions ON groups_accesses.action.id = actions.id
 ORDER BY groups.name ASC;;
@@ -74,7 +74,7 @@ ORDER BY groups.name ASC;;
 CREATE PROCEDURE `usp_get_all_groups_members`()
 SELECT users.name, groups.name FROM users 
 INNER JOIN groups_members ON users.id = groups_members.user_id
-INNER JOIN groups ON groups_members.group_id = groups.id
+INNER JOIN `groups` ON groups_members.group_id = groups.id
 ORDER BY groups.name ASC;;
 
 CREATE PROCEDURE `usp_get_all_users`()
@@ -88,7 +88,7 @@ CREATE PROCEDURE `usp_update_action`(IN `p_id` int, IN `p_name` varchar(45), IN 
 UPDATE actions SET name = p_name, description = p_description WHERE id = p_id;;
 
 CREATE PROCEDURE `usp_update_group`(IN `p_id` int, IN `p_new_name` varchar(45), IN `p_new_description` varchar(128))
-UPDATE groups SET name = p_new_name, description = p_new_description WHERE id = p_id;;
+UPDATE `groups` SET name = p_new_name, description = p_new_description WHERE id = p_id;;
 
 CREATE PROCEDURE `usp_update_group_access`(IN `p_group_id` int, IN `p_action_id` int, IN `p_new_action_id` int)
 UPDATE groups_accesses SET actions_id = p_new_action_id WHERE groups_id = p_group_id AND actions_id = p_action_id;;
