@@ -30,6 +30,10 @@ class FormView extends HTMLElement {
         this.passwordInput.classList.add('w3-input', 'w3-border');
         this.passwordInput.type = 'password';
         this.passwordInput.placeholder = 'Password';
+
+        this.confirmButton = document.createElement('button');
+        this.confirmButton.classList.add('w3-button', 'w3-green');
+        this.confirmButton.innerText = "Log in";
     }
 
     connectedCallback() {
@@ -38,6 +42,9 @@ class FormView extends HTMLElement {
         this.form.appendChild(this.usernameInput);
         this.form.appendChild(this.passwordLabel);
         this.form.appendChild(this.passwordInput);
+        this.form.appendChild(this.confirmButton);
+
+        this.confirmButton.addEventListener('click', () => this.controller.onSubmit());
 
         this.appendChild(this.form);
     }

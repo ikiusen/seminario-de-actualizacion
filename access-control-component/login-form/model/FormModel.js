@@ -3,8 +3,15 @@ class FormModel {
     }
 
     submit(data) {
-        //fixed path to work with modal-dialog-window [index-modal.html]
-        return fetch('../form/backend/authenticateUser.php', { method: 'POST', body: JSON.stringify(data) }).then(response => response.json());
+        return fetch('./backend/authenticateUser.php', { method: 'POST', body: JSON.stringify(data) })
+            .then(response => response.json())
+            .then(response => {
+                if (response["status"] == "ok") {
+                    return response["responseData"].user_id;
+                } else {
+                    alert("Error processing request");
+                }
+            });
     }
 }
 

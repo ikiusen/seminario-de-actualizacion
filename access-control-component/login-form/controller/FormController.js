@@ -5,7 +5,7 @@ class FormController {
     }
 
     onSubmit() {
-        this.model.submit(this.view.getFormData()).then(response => { alert(response); });
+        this.model.submit(this.view.getFormData()).then((response) => { console.log(response); });
     }
 
 }

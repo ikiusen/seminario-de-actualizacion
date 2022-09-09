@@ -19,12 +19,17 @@ try
 		$SQLStatement->execute();
 
 		$response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
+		if(sizeof($response)!=0) {
+			$status = array(status => "ok", responseData => array(user_id => $response[0]["id"]));
+		} else {
+			$status = array(status => "exception", description => "invalid user and/or password");
+		}
 	}
-	echo json_encode($response);
+	echo json_encode($status);
 }
 catch(PDOException $connectionException)
 {
-    $status = array(status=>"db-error (authenticateUser.php",description=>$connectionException->getMessage());
+    $status = array(status => "db-error (authenticateUser.php", description => $connectionException->getMessage());
     echo json_encode($status);
     die();
 }
