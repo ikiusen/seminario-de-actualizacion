@@ -6,13 +6,16 @@ class FormController {
 
     onSubmit() {
         this.model.submit(this.view.getFormData()).then((response) => {
-            console.log(response);
-            if (response.startsWith("Error")) {
-                console.log("hi");
+            if (!response.startsWith("Error")) {
+                //adds a new history item, and lets you back track with the back button
+                window.location.href = 'hello.html';
+                //doesnt add a new item, and the back item doesnt consider the previous page
+                window.location.replace('hello.html');
+            } else {
+                console.log(response);
             }
         });
     }
-
 }
 
 export { FormController };
