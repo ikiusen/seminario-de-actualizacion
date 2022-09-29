@@ -9,7 +9,7 @@ class FormModel {
                 if (response["status"] == "ok") {
                     return response["responseData"].user_id;
                 } else {
-                    alert("Error processing request");
+                    return "Error processing request " + response["description"];
                 }
             });
     }

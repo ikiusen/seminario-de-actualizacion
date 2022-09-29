@@ -54,7 +54,6 @@ class FormView extends HTMLElement {
             username: this.usernameInput.value,
             password: this.passwordInput.value
         }
-
         return values;
     }
 }
