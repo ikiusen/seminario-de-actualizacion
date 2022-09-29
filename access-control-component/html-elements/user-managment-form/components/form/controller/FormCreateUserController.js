@@ -9,6 +9,10 @@ class FormCreateUserController {
     }
 
     onGetUsersButtonClick() {
+        this.getUsers();
+    }
+
+    getUsers() {
         this.model.getUsers().then((response) => {
             if (this.view.userList.firstChild) {
                 this.view.clearTable();
@@ -21,27 +25,27 @@ class FormCreateUserController {
     }
 
     onDeleteButtonClick(e) {
-        console.log(e.target.parentNode.parentNode.childNodes[0].innerText);
         let data = {
-            "id": e.target.parentNode.parentNode.childNodes[0].innerText
+            "id": e.target.parentElement.parentElement.getAttribute('pkey')
         }
         this.model.deleteUser(data).then((response) => {
             console.log(response);
+            this.getUsers();
         });
     }
 
     onUpdateButtonClick(e) {
-        if (typeof e.target.parentNode.parentNode.childNodes[0].innerText == 'number') {
-            console.log(e.target.parentNode.parentNode.childNodes[0].innerText);
-            //toDo: finish implementation;
-            //this.model.updateUser(this.view.getUserToUpdate()).then((response) => { console.log(response); });
+        let data = {
+            "id": e.target.parentElement.parentElement.getAttribute('pkey')
         }
+        //toDo: finish implementation;
+        //this.model.updateUser(this.view.getUserToUpdate()).then((response) => { console.log(response); });
     }
 
     onTableClick(e) {
-        if (e.target.innerText == "Delete") {
+        if (e.target.tagName == 'BUTTON' && e.target.innerText == "Delete") {
             this.onDeleteButtonClick(e);
-        } else if (e.target.innerText == "Update") {
+        } else if (e.target.tagName == 'BUTTON' && e.target.innerText == "Update") {
             this.onUpdateButtonClick(e);
         }
     }

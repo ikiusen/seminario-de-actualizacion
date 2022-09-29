@@ -11,7 +11,7 @@ class FormCreateUserView extends HTMLElement {
         this.form.style.maxWidth = '500px';
 
         this.mainHeader = document.createElement('h1');
-        this.mainHeader.innerText = 'Create User'
+        this.mainHeader.innerText = 'User Management'
 
         this.usernameLabel = document.createElement('label');
         this.usernameLabel.classList.add('w3-label');
@@ -33,7 +33,7 @@ class FormCreateUserView extends HTMLElement {
 
         this.createButton = document.createElement('button');
         this.createButton.classList.add('w3-button', 'w3-round', 'w3-blue', 'w3-hover-dark-grey', 'w3-margin-bottom');
-        this.createButton.innerText = 'Create';
+        this.createButton.innerText = 'Create User';
         this.createButton.addEventListener('click', () => this.controller.onCreateButtonClick());
 
         this.getUsersButton = document.createElement('button');
@@ -94,6 +94,7 @@ class FormCreateUserView extends HTMLElement {
 
     addUserToTable(id, user) {
         let row = document.createElement('tr');
+        row.setAttribute('pkey', id);
         let idItem = document.createElement('td');
         idItem.innerText = id;
         let userItem = document.createElement('td');
