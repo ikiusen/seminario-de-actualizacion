@@ -6,8 +6,8 @@ class FormController {
 
     onSubmit() {
         this.model.submit(this.view.getFormData()).then((response) => {
-            console.log(response); 
-            if(response.startsWith("Error")) {
+            console.log(response);
+            if (response.startsWith("Error")) {
                 console.log("hi");
             }
         });
