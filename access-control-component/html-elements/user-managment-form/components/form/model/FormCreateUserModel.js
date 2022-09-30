@@ -17,6 +17,10 @@ class FormCreateUserModel {
     updateUser(data) {
         return fetch('./backend/updateUser.php', { method: 'POST', body: JSON.stringify(data) }).then(response => response.json());
     }
+
+    getUserById(data) {
+        return fetch('./backend/getUserById.php', { method: 'POST', body: JSON.stringify(data) }).then(response => response.json());
+    }
 }
 
 export { FormCreateUserModel };

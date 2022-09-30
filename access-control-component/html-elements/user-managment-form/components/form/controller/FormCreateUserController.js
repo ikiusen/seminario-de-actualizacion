@@ -5,23 +5,14 @@ class FormCreateUserController {
     }
 
     onCreateButtonClick() {
-        this.model.createUser(this.view.getFormData()).then((response) => { console.log(response); });
+        this.model.createUser(this.view.getFormData()).then((response) => {
+            console.log(response);
+            this.view.clearInputs();
+        });
     }
 
     onGetUsersButtonClick() {
         this.getUsers();
-    }
-
-    getUsers() {
-        this.model.getUsers().then((response) => {
-            if (this.view.userList.firstChild) {
-                this.view.clearTable();
-            }
-            this.view.initializeTable();
-            response.forEach(element => {
-                this.view.addUserToTable(element.id, element.name);
-            });
-        });
     }
 
     onDeleteButtonClick(e) {
@@ -35,11 +26,26 @@ class FormCreateUserController {
     }
 
     onUpdateButtonClick(e) {
+        let id = e.target.parentElement.parentElement.getAttribute('pkey');
         let data = {
-            "id": e.target.parentElement.parentElement.getAttribute('pkey')
+            "id": id
         }
-        //toDo: finish implementation;
-        //this.model.updateUser(this.view.getUserToUpdate()).then((response) => { console.log(response); });
+        this.view.updateId = id;
+        this.model.getUserById(data).then((response) => {
+            this.view.setUserForUpdate(response[0].name);
+        })
+    }
+
+    onCancelButtonClick() {
+        this.view.clearUpdate();
+    }
+
+    onConfirmButtonClick() {
+        this.model.updateUser(this.view.getFormData()).then((response) => {
+            console.log(response);
+            this.view.clearUpdate();
+            this.getUsers();
+        })
     }
 
     onTableClick(e) {
@@ -50,6 +56,17 @@ class FormCreateUserController {
         }
     }
 
+    getUsers() {
+        this.model.getUsers().then((response) => {
+            if (this.view.userList.firstChild) {
+                this.view.clearTable();
+            }
+            this.view.initializeTable();
+            response.forEach(element => {
+                this.view.addUserToTable(element.id, element.name);
+            });
+        });
+    }
 }
 
 export { FormCreateUserController };

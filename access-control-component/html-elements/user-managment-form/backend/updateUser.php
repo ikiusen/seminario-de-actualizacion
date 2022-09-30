@@ -9,16 +9,19 @@ $password = $input->password;
 $username = $input->username;
 
 try
-{
-	$SQLStatement = $connection->prepare("CALL `usp_update_user`(:id, :username, :password)");
-    $SQLStatement->bindParam( ':id', $id );
-	$SQLStatement->bindParam( ':username', $username );
-	$SQLStatement->bindParam( ':password', $password );
-	$SQLStatement->execute();
-
-	$status = array( status=>'ok', description=>'success' );
-
-    echo json_encode($status);
+{   
+    if($username == "" || $password == "")
+	{
+		$status = array(status=>"error", description=>"inputs can't be empty!");
+	} else {
+        $SQLStatement = $connection->prepare("CALL `usp_update_user`(:id, :username, :password)");
+        $SQLStatement->bindParam( ':id', $id );
+        $SQLStatement->bindParam( ':username', $username );
+        $SQLStatement->bindParam( ':password', $password );
+        $SQLStatement->execute();
+        $status = array( status=>'ok', description=>'success' );
+        echo json_encode($status);
+    }
 }
 catch( PDOException $connectionException )
 {
