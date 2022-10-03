@@ -58,7 +58,7 @@ class GroupManagementFormController {
 
     getGroups() {
         this.model.getGroups().then((response) => {
-            if (this.view.GroupList.firstChild) {
+            if (this.view.groupTable.firstChild) {
                 this.view.clearTable();
             }
             this.view.initializeTable();

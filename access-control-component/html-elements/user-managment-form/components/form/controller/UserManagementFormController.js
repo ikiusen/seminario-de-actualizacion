@@ -58,7 +58,7 @@ class UserManagementFormController {
 
     getUsers() {
         this.model.getUsers().then((response) => {
-            if (this.view.userList.firstChild) {
+            if (this.view.userTable.firstChild) {
                 this.view.clearTable();
             }
             this.view.initializeTable();

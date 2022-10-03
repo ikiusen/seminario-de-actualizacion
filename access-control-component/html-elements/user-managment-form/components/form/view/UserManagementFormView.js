@@ -10,7 +10,7 @@ class UserManagementFormView extends HTMLElement {
         this.controller = new UserManagementFormController(this, this.model);
 
         this.form = document.createElement('div');
-        this.form.classList.add('w3-container', 'w3-light-grey', 'w3-leftbar', 'w3-border', 'w3-card-4', 'w3-bottombar');
+        this.form.classList.add('w3-container', 'w3-light-grey', 'w3-leftbar', 'w3-border', 'w3-card-4', 'w3-bottombar', 'w3-margin');
         this.form.style.maxWidth = '500px';
 
         this.mainHeader = document.createElement('h1');
@@ -177,6 +177,6 @@ class UserManagementFormView extends HTMLElement {
     }
 }
 
-customElements.define('x-form-view', UserManagementFormView);
+customElements.define('x-user-management-form-view', UserManagementFormView);
 
 export { UserManagementFormView };

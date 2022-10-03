@@ -1,6 +1,6 @@
 <?php
 
-include_once("./database.php");
+include_once "./lib/database.php";
 
 $input = json_decode(file_get_contents('php://input'));
 
