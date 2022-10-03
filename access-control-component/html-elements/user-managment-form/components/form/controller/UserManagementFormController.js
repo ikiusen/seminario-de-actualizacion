@@ -1,4 +1,4 @@
-class FormCreateUserController {
+class UserManagementFormController {
     constructor(view, model) {
         this.view = view;
         this.model = model;
@@ -30,7 +30,7 @@ class FormCreateUserController {
         let data = {
             "id": id
         }
-        this.view.updateId = id;
+        this.view.setSelectedRowId(id);
         this.model.getUserById(data).then((response) => {
             this.view.setUserForUpdate(response[0].name);
         })
@@ -69,4 +69,4 @@ class FormCreateUserController {
     }
 }
 
-export { FormCreateUserController };
+export { UserManagementFormController };

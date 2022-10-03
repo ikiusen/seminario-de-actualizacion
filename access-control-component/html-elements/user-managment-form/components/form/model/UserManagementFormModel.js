@@ -1,4 +1,4 @@
-class FormCreateUserModel {
+class UserManagementFormModel {
     constructor() {
     }
 
@@ -23,4 +23,4 @@ class FormCreateUserModel {
     }
 }
 
-export { FormCreateUserModel };
+export { UserManagementFormModel };

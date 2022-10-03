@@ -1,9 +1,9 @@
-import { FormCreateUserModel } from './components/form/model/FormCreateUserModel.js';
-import { FormCreateUserView } from './components/form/view/FormCreateUserView.js';
+import { UserManagementFormModel } from './components/form/model/UserManagementFormModel.js';
+import { UserManagementFormView } from './components/form/view/UserManagementFormView.js';
 
 function main() {
-    let myFormModel = new FormCreateUserModel();
-    let myFormView = new FormCreateUserView(myFormModel);
+    let myFormModel = new UserManagementFormModel();
+    let myFormView = new UserManagementFormView(myFormModel);
 
     document.body.appendChild(myFormView);
 }

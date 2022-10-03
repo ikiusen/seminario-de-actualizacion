@@ -1,10 +1,13 @@
-import { FormCreateUserController } from '../controller/FormCreateUserController.js';
+import { UserManagementFormController } from '../controller/UserManagementFormController.js';
 
-class FormCreateUserView extends HTMLElement {
+class UserManagementFormView extends HTMLElement {
     constructor(model) {
         super();
+
+        this.__selectedRowId = null;
+
         this.model = model;
-        this.controller = new FormCreateUserController(this, this.model);
+        this.controller = new UserManagementFormController(this, this.model);
 
         this.form = document.createElement('div');
         this.form.classList.add('w3-container', 'w3-light-grey', 'w3-leftbar', 'w3-border', 'w3-card-4', 'w3-bottombar');
@@ -53,11 +56,9 @@ class FormCreateUserView extends HTMLElement {
         this.cancelButton.style.visibility = 'hidden';
         this.cancelButton.addEventListener('click', () => this.controller.onCancelButtonClick());
 
-        this.userList = document.createElement('table');
-        this.userList.classList.add('w3-table-all', 'w3-hoverable', 'w3-section');
-        this.userList.addEventListener('click', (e) => this.controller.onTableClick(e));
-
-        this.updateId = null;
+        this.userTable = document.createElement('table');
+        this.userTable.classList.add('w3-table-all', 'w3-hoverable', 'w3-section');
+        this.userTable.addEventListener('click', (e) => this.controller.onTableClick(e));
     }
 
     connectedCallback() {
@@ -70,14 +71,22 @@ class FormCreateUserView extends HTMLElement {
         this.form.appendChild(this.getUsersButton);
         this.form.appendChild(this.confirmButton);
         this.form.appendChild(this.cancelButton);
-        this.form.appendChild(this.userList);
+        this.form.appendChild(this.userTable);
 
         this.appendChild(this.form);
     }
 
+    setSelectedRowId(value) {
+        this.__selectedRowId = value;
+    }
+
+    getSelectedRowId() {
+        return this.__selectedRowId;
+    }
+
     getFormData() {
         let values = {
-            id: this.updateId,
+            id: this.getSelectedRowId(),
             username: this.usernameInput.value,
             password: this.passwordInput.value
         }
@@ -105,7 +114,7 @@ class FormCreateUserView extends HTMLElement {
         firstRow.appendChild(deleteHeader);
         firstRow.appendChild(updateHeader);
 
-        this.userList.appendChild(firstRow);
+        this.userTable.appendChild(firstRow);
     }
 
     addUserToTable(id, user) {
@@ -135,11 +144,17 @@ class FormCreateUserView extends HTMLElement {
         row.appendChild(userItem);
         row.appendChild(deleteContainer);
         row.appendChild(updateContainer);
-        this.userList.appendChild(row);
+        this.userTable.appendChild(row);
     }
 
-    setUserForUpdate(id) {
-        this.usernameInput.value = id;
+    clearTable() {
+        while (this.userTable.firstChild) {
+            this.userTable.removeChild(this.userTable.firstChild);
+        }
+    }
+
+    setUserForUpdate(user) {
+        this.usernameInput.value = user;
         this.usernameInput.disabled = true;
 
         this.cancelButton.style.visibility = 'visible';
@@ -152,22 +167,16 @@ class FormCreateUserView extends HTMLElement {
         this.passwordInput.value = '';
     }
 
-    clearTable() {
-        while (this.userList.firstChild) {
-            this.userList.removeChild(this.userList.firstChild);
-        }
-    }
-
     clearUpdate() {
         this.clearInputs();
         this.cancelButton.style.visibility = 'hidden';
         this.confirmButton.style.visibility = 'hidden';
         this.createButton.disabled = false;
         this.usernameInput.disabled = false;
-        this.updateId = null;
+        this.setSelectedRowId(null);
     }
 }
 
-customElements.define('x-form-view', FormCreateUserView);
+customElements.define('x-form-view', UserManagementFormView);
 
-export { FormCreateUserView };
+export { UserManagementFormView };
