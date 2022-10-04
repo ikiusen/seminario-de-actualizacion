@@ -4,11 +4,11 @@ include_once "./lib/database.php";
 
 $input = json_decode( file_get_contents('php://input') );
 
-$id = $input->id;
+$id = $input->userId;
 
 try
 {
-	$SQLStatement = $connection->prepare("CALL `usp-get-user-by-id`(:id)");
+	$SQLStatement = $connection->prepare("CALL `usp-get-groups-where-user-is-in`(:id)");
     $SQLStatement->bindParam( ':id', $id );
 	$SQLStatement->execute();
     $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);

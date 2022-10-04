@@ -8,7 +8,7 @@ $id = $input->id;
 
 try
 {
-    $SQLStatement = $connection->prepare("CALL `usp_get_group_by_id`(:id)");
+    $SQLStatement = $connection->prepare("CALL `usp-get-group-by-id`(:id)");
     $SQLStatement->bindParam(':id', $id);
     $SQLStatement->execute();
     $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);

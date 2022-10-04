@@ -4,18 +4,18 @@ include_once "./lib/database.php";
 
 $input = json_decode(file_get_contents('php://input'));
 
-$password = $input->password;
-$username = $input->username;
+$userId = $input->userId;
+$groupId = $input->groupId;
 
 try
 {
-	if($username == "" || $password == "")
+	if($groupId == "" || $userId == "")
 	{
 		$status = array(status=>"error", description=>"inputs can't be empty!");
 	} else {
-		$SQLStatement = $connection->prepare("CALL `usp-create-user`(:username, :password)");
-		$SQLStatement->bindParam(':username', $username);
-		$SQLStatement->bindParam(':password', $password);
+		$SQLStatement = $connection->prepare("CALL `usp-add-user-to-group`(:userId, :groupId)");
+		$SQLStatement->bindParam(':userId', $userId);
+		$SQLStatement->bindParam(':groupId', $groupId);
 		$SQLStatement->execute();
 
 		$status = array( status=>"ok", description=>"success" );
@@ -24,7 +24,7 @@ try
 }
 catch(PDOException $connectionException)
 {
-    $status = array(status=>"db-error (createUser.php",description=>$connectionException->getMessage());
+    $status = array(status=>"db-error (addUserToGroup.php",description=>$connectionException->getMessage());
     echo json_encode($status);
     die();
 }

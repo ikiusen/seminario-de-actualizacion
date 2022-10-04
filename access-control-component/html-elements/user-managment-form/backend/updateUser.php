@@ -14,7 +14,7 @@ try
 	{
 		$status = array(status=>"error", description=>"inputs can't be empty!");
 	} else {
-        $SQLStatement = $connection->prepare("CALL `usp_update_user`(:id, :username, :password)");
+        $SQLStatement = $connection->prepare("CALL `usp-update-user`(:id, :username, :password)");
         $SQLStatement->bindParam( ':id', $id );
         $SQLStatement->bindParam( ':username', $username );
         $SQLStatement->bindParam( ':password', $password );

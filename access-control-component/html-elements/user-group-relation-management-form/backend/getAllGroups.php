@@ -4,19 +4,16 @@ include_once "./lib/database.php";
 
 $input = json_decode( file_get_contents('php://input') );
 
-$id = $input->id;
-
 try
 {
-	$SQLStatement = $connection->prepare("CALL `usp-get-user-by-id`(:id)");
-    $SQLStatement->bindParam( ':id', $id );
+	$SQLStatement = $connection->prepare("CALL `usp-get-all-groups`");
 	$SQLStatement->execute();
     $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
 	echo json_encode( $response);
 }
 catch( PDOException $connectionException )
 {
-    $status = array( status=>'db-error (getUserById.php', description=>$connectionException->getMessage() );
+    $status = array( status=>'db-error (getAllGroups.php', description=>$connectionException->getMessage() );
     echo json_encode($status);
     die();
 }

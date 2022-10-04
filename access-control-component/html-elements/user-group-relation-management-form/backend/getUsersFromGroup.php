@@ -4,11 +4,11 @@ include_once "./lib/database.php";
 
 $input = json_decode( file_get_contents('php://input') );
 
-$id = $input->id;
+$id = $input->groupId;
 
 try
 {
-	$SQLStatement = $connection->prepare("CALL `usp-get-user-by-id`(:id)");
+	$SQLStatement = $connection->prepare("CALL `usp-get-users-by-group`(:id)");
     $SQLStatement->bindParam( ':id', $id );
 	$SQLStatement->execute();
     $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
@@ -16,7 +16,7 @@ try
 }
 catch( PDOException $connectionException )
 {
-    $status = array( status=>'db-error (getUserById.php', description=>$connectionException->getMessage() );
+    $status = array( status=>'db-error (getUsersFromGroup.php', description=>$connectionException->getMessage() );
     echo json_encode($status);
     die();
 }

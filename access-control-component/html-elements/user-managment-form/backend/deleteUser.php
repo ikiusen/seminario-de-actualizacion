@@ -8,7 +8,7 @@ $id = $input->id;
 
 try
 {
-	$SQLStatement = $connection->prepare("CALL `usp_delete_user`(:id)");
+	$SQLStatement = $connection->prepare("CALL `usp-delete-user`(:id)");
 	$SQLStatement->bindParam( ':id', $id );
 	$SQLStatement->execute();
 

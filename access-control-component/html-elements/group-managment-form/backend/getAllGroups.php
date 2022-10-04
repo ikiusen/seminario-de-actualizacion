@@ -6,7 +6,7 @@ $input = json_decode(file_get_contents('php://input'));
 
 try
 {
-    $SQLStatement = $connection->prepare("CALL `usp_get_all_groups`");
+    $SQLStatement = $connection->prepare("CALL `usp-get-all-groups`");
     $SQLStatement->execute();
     $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($response);

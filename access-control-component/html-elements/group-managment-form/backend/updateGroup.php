@@ -13,7 +13,7 @@ try
     if ($name == "" || $description == "") {
         $status = array(status => "error", description => "inputs can't be empty!");
     } else {
-        $SQLStatement = $connection->prepare("CALL `usp_update_group`(:id, :name, :description)");
+        $SQLStatement = $connection->prepare("CALL `usp-update-group`(:id, :name, :description)");
         $SQLStatement->bindParam(':id', $id);
         $SQLStatement->bindParam(':name', $name);
         $SQLStatement->bindParam(':description', $description);

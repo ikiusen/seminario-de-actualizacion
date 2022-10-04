@@ -12,7 +12,7 @@ try
     if ($name == "" || $description == "") {
         $status = array(status => "error", description => "inputs can't be empty!");
     } else {
-        $SQLStatement = $connection->prepare("CALL `usp_create_group`(:name, :description)");
+        $SQLStatement = $connection->prepare("CALL `usp-create-group`(:name, :description)");
         $SQLStatement->bindParam(':name', $name);
         $SQLStatement->bindParam(':description', $description);
         $SQLStatement->execute();
