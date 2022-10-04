@@ -18,7 +18,7 @@ try
 
         $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($response) != 0) {
-            if(password_verify($password, $response[0]["password"])) {
+            if (password_verify($password, $response[0]["password"])) {
                 $status = array(status => "ok", responseData => array(user_id => $response[0]["id"]));
             } else {
                 $status = array(status => "exception", description => "Invalid user and/or password");

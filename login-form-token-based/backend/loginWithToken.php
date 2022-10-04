@@ -19,9 +19,9 @@ try
         $response = $SQLAuthStatement->fetchAll(PDO::FETCH_ASSOC);
         $SQLAuthStatement->closeCursor();
         if (sizeof($response) != 0) {
-            if(password_verify($password, $response[0]["password"])) {
+            if (password_verify($password, $response[0]["password"])) {
                 $id_user = $response[0]["id"];
-                $token = hash('sha256', $username.$response[0]["password"]);
+                $token = hash('sha256', $username . $response[0]["password"]);
                 //If valid, create token and establish session
                 //toDo: take into account possible errors
                 $SQLSessionStatement = $connection->prepare("CALL `usp-create-user-session`(:id_user, :token)");
