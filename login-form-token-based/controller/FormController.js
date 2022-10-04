@@ -8,8 +8,9 @@ class FormController {
         this.model.submit(this.view.getFormData()).then((response) => {
             if (!response.startsWith("Error")) {
                 //adds a new history item, and lets you back track with the back button
-                window.location.href = 'hello.html';
+                //window.location.href = 'hello.html';
                 //doesnt add a new item, and the back item doesnt consider the previous page
+                window.sessionStorage.setItem('token', response);
                 window.location.replace('hello.html');
             } else {
                 console.log(response);

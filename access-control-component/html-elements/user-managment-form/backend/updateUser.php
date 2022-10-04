@@ -5,7 +5,7 @@ include_once "./lib/database.php";
 $input = json_decode(file_get_contents('php://input'));
 
 $id = $input->id;
-$password = $input->password;
+$password = password_hash($input->password, PASSWORD_DEFAULT);
 $username = $input->username;
 
 try
@@ -17,7 +17,7 @@ try
         $SQLStatement = $connection->prepare("CALL `usp-update-user`(:id, :username, :password)");
         $SQLStatement->bindParam( ':id', $id );
         $SQLStatement->bindParam( ':username', $username );
-        $SQLStatement->bindParam( ':password', $password );
+        $SQLStatement->bindParam( ':password', $password);
         $SQLStatement->execute();
         $status = array( status=>'ok', description=>'success' );
         echo json_encode($status);

@@ -4,7 +4,7 @@ include_once "./lib/database.php";
 
 $input = json_decode(file_get_contents('php://input'));
 
-$password = $input->password;
+$password = password_hash($input->password, PASSWORD_DEFAULT);
 $username = $input->username;
 
 try
