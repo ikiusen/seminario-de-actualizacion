@@ -17,6 +17,9 @@ INSERT INTO groups_members (user_id, group_id) VALUES (p_user_id, p_group_id);;
 CREATE PROCEDURE `usp-authenticate-user`(IN `p_user_name` varchar(45))
 SELECT users.id, users.password FROM users WHERE users.name = p_user_name;;
 
+CREATE PROCEDURE `usp-check-session-token`(IN `token` varchar(256))
+SELECT user_session.id FROM user_session WHERE expires > NOW() AND user_session.token = token;;
+
 CREATE PROCEDURE `usp-create-group`(IN `p_name` varchar(45), IN `p_description` varchar(128))
 INSERT INTO `groups` (name, description) VALUES (p_name, p_description);;
 
@@ -49,6 +52,9 @@ DELETE FROM `groups` WHERE id = p_id;;
 
 CREATE PROCEDURE `usp-delete-user`(IN `p_id` int)
 DELETE FROM users WHERE id = p_id;;
+
+CREATE PROCEDURE `usp-delete-user-session`(IN `token` varchar(256))
+DELETE FROM user_session WHERE user_session.token = token;;
 
 CREATE PROCEDURE `usp-get-all-groups`()
 SELECT id, name, description FROM `groups`;;
@@ -157,4 +163,4 @@ TRUNCATE `users`;
 INSERT INTO `users` (`id`, `name`, `password`) VALUES
 (38,	'Thiago',	'$2y$10$SRDpOGjhGnR3rdv2aDYIT.gtQCK5pK55LfAd8XZpSQ2OEoMRQJxMS');
 
--- 2022-10-04 18:09:18
+-- 2022-10-20 18:18:53
