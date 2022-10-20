@@ -11,7 +11,7 @@ class FormController {
                 //window.location.href = 'hello.html';
                 //doesnt add a new item, and the back item doesnt consider the previous page
                 window.sessionStorage.setItem('token', response);
-                window.location.replace('hello.html');
+                window.location.replace('system-index.html');
             } else {
                 console.log(response);
             }

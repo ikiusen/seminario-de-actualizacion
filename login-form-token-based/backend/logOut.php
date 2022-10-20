@@ -10,10 +10,11 @@ $token = $_SERVER['HTTP_X_SESSION_KEY'];
 try
 {
     if(checkToken($token)) {
-        $SQLStatement = $connection->prepare("CALL `usp-get-all-users`");
+        $SQLStatement = $connection->prepare("CALL `usp-delete-user-session`(:token)");
+        $SQLStatement->bindParam(':token', $token);
         $SQLStatement->execute();
-        $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($response);
+        $status = array("status" => "ok", "description" => "logged out");
+        echo json_encode($status);
     } else {
         $status = array("status" => "db-error (getAllUsers.php", "description" => "Invalid session");
         echo json_encode($status);
@@ -23,5 +24,3 @@ try
     echo json_encode($status);
     die();
 }
-
-

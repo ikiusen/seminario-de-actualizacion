@@ -3,7 +3,12 @@ class FormModel {
     }
 
     submit(data) {
-        return fetch('./backend/loginWithToken.php', { method: 'POST', body: JSON.stringify(data) })
+        let requestParameters = {
+            method: 'POST',
+            body: JSON.stringify(data)
+        };
+        let request = new Request('./backend/loginWithToken.php', requestParameters);
+        return fetch(request)
             .then(response => response.json())
             .then(response => {
                 if (response["status"] == "ok") {
