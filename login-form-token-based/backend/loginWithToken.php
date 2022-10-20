@@ -10,7 +10,7 @@ $username = $input->username;
 try
 {
     if ($username == "" || $password == "") {
-        $status = array(status => "error", description => "inputs can't be empty!");
+        $status = array("status" => "error", "description" => "inputs can't be empty!");
     } else {
         //Validate user existence
         $SQLAuthStatement = $connection->prepare("CALL `usp-authenticate-user`(:username)");
@@ -21,7 +21,7 @@ try
         if (sizeof($response) != 0) {
             if (password_verify($password, $response[0]["password"])) {
                 $id_user = $response[0]["id"];
-                $token = hash('sha256', $username . $response[0]["password"]);
+                $token = hash("sha256", $username . $response[0]["password"]);
                 //If valid, create token and establish session
                 //toDo: take into account possible errors
                 $SQLSessionStatement = $connection->prepare("CALL `usp-create-user-session`(:id_user, :token)");
@@ -29,17 +29,17 @@ try
                 $SQLSessionStatement->bindParam(':token', $token);
                 $SQLSessionStatement->execute();
                 $SQLSessionStatement->closeCursor();
-                $status = array(status => "ok", responseData => array(token => $token));
+                $status = array("status" => "ok", "responseData" => array("token" => $token));
             } else {
-                $status = array(status => "exception", description => "Invalid user and/or password");
+                $status = array("status" => "exception", "description" => "Invalid user and/or password");
             }
         } else {
-            $status = array(status => "exception", description => "Invalid user and/or password");
+            $status = array("status" => "exception", "description" => "Invalid user and/or password");
         }
     }
     echo json_encode($status);
 } catch (PDOException $connectionException) {
-    $status = array(status => "db-error (authenticateUser.php", description => $connectionException->getMessage());
+    $status = array("status" => "db-error (authenticateUser.php", "description" => $connectionException->getMessage());
     echo json_encode($status);
     die();
 }

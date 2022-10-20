@@ -15,11 +15,11 @@ try
         $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($response);
     } else {
-        $status = array(status => 'db-error (getAllUsers.php', description => "Invalid session");
+        $status = array("status" => "db-error (getAllUsers.php", "description" => "Invalid session");
         echo json_encode($status);
     }
 } catch (PDOException $connectionException) {
-    $status = array(status => 'db-error (getAllUsers.php', description => $connectionException->getMessage());
+    $status = array("status" => "db-error (getAllUsers.php", "description" => $connectionException->getMessage());
     echo json_encode($status);
     die();
 }

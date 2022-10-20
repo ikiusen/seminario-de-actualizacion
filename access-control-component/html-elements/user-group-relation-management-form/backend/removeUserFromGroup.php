@@ -11,20 +11,20 @@ try
 {
 	if($groupId == "" || $userId == "")
 	{
-		$status = array(status=>"error", description=>"inputs can't be empty!");
+		$status = array("status"=>"error", "description"=>"inputs can't be empty!");
 	} else {
 		$SQLStatement = $connection->prepare("CALL `usp-remove-user-from-group`(:userId, :groupId)");
 		$SQLStatement->bindParam(':userId', $userId);
 		$SQLStatement->bindParam(':groupId', $groupId);
 		$SQLStatement->execute();
 
-		$status = array( status=>"ok", description=>"success" );
+		$status = array( "status"=>"ok", "description"=>"success" );
 	}
 	echo json_encode($status);
 }
 catch(PDOException $connectionException)
 {
-    $status = array(status=>"db-error (removeUserFromGroup.php",description=>$connectionException->getMessage());
+    $status = array("status"=>"db-error (removeUserFromGroup.php", "description"=>$connectionException->getMessage());
     echo json_encode($status);
     die();
 }

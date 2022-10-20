@@ -14,7 +14,7 @@ try
     $response = $SQLStatement->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($response);
 } catch (PDOException $connectionException) {
-    $status = array(status => 'db-error (getUserById.php', description => $connectionException->getMessage());
+    $status = array("status" => "db-error (getUserById.php", "description" => $connectionException->getMessage());
     echo json_encode($status);
     die();
 }

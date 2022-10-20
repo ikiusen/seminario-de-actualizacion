@@ -2,6 +2,8 @@
 
 include_once "./database.php";
 
+$tokenStatus = false;
+
 function checkToken($token) {
     try
     {
@@ -13,11 +15,11 @@ function checkToken($token) {
         if (sizeof($response) != 0) {
             $tokenStatus = true;
         }
+        return $tokenStatus;
     } catch (PDOException $connectionException) {
-        $status = array(status => "db-error (auth.php", description => $connectionException->getMessage());
+        $status = array("status"=> "db-error (auth.php", "description" => $connectionException->getMessage());
         echo json_encode($status);
         die();
     }
-
 }
 
