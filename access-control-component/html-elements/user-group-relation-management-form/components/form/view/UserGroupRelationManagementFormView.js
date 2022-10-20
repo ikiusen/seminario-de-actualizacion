@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2022 Thiago Cabrera All rights reserved.
+ * Contact: thiagofcabrera00@gmail.com
+ * Released under the GPLv3
+ * https://www.gnu.org/licenses/gpl-3.0
+ **/
 import { UserGroupRelationManagementFormController } from '../controller/UserGroupRelationManagementFormController.js';
 
 class UserGroupRelationManagementFormView extends HTMLElement {
