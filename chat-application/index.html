@@ -21,26 +21,27 @@
     <button id="sendButton">Enviar</button>
 
     <h4>Usuario B</h4>
-    <textarea>
+    <textarea id="textAreaB">
 
     </textarea>
     <br>
     <input type="text" name="" value="">
     <button>Enviar</button>
+    <button id="getButton">Recieve</button>
 
 </body>
 <script type="text/javascript" src="./aes.js"></script>
 <script type="text/javascript">
     function connect() {
-        fetch("./connectUsers.php", { method: 'POST', body: null })
+        fetch("./connectUsers.php", { method: "POST", body: null })
             .then(response => response.json())
             .then(response => {
-                sessionStorage.setItem('chat-key', response);
-                console.log('yay!');
+                sessionStorage.setItem("chat-key", response);
+                console.log("yay!");
             });
     }
     function send() {
-        fetch("./sendMessage.php", { method: 'POST', body: encryptMessage(sessionStorage.getItem("chat-key"), inputField.value) })
+        fetch("./sendMessage.php", { method: "POST", body: JSON.stringify(encryptMessage(sessionStorage.getItem("chat-key"), inputField.value)) })
             .then(response => response.json())
             .then(response => {
                 console.log(response);
@@ -49,18 +50,36 @@
 
     function encryptMessage(key, message) {
         let encryption = CryptoJS.AES.encrypt(message, key);
-        console.log(encryption);
-        let decrypted = CryptoJS.AES.decrypt(encryption, key); 
-        console.log(decrypted);
-        //return encryption;
+        let data = {
+            "sender": "A",
+            "reciever": "B",
+            "message": encryption.toString()
+        }
+        return data;
+    }
+
+    function decryptMessage(key, message) {
+        let decrypted = CryptoJS.AES.decrypt(message, key); 
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+    
+
+    function getMessage() {
+        fetch("./getMessages.php", { method: "POST", body: JSON.stringify({ "reciever": "B" }) })
+            .then(response => response.json())
+            .then(response => {
+                decryptedMessage = decryptMessage(sessionStorage.getItem("chat-key"), response["message"]);
+                textAreaB.value = decryptedMessage;
+            });
     }
 
     function main() {
-        connectButton.addEventListener('click', () => connect());
-        sendButton.addEventListener('click', () => send());
+        connectButton.addEventListener("click", () => connect());
+        sendButton.addEventListener("click", () => send());
+        getButton.addEventListener("click", () => getMessage());
     }
 
-    window.addEventListener('load', () => main());    
+    window.addEventListener("load", () => main());    
 </script>
 
 </html>

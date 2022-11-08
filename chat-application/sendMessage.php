@@ -1,8 +1,13 @@
 <?php
 include_once("./server.php");
 
-$jsonBody = file_get_contents('php://input');
-$object = json_decode($jsonBody);
+$object = json_decode(file_get_contents('php://input'));
 
-echo json_encode($object);
+$response = $array = array('status' => 'error');
+if (sendMessage($object->sender, $object->reciever, $object->message))
+{
+    $response = $array = array('status' => 'ok');
+}
+
+echo json_encode($response);
 ?>
