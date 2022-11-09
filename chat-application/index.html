@@ -59,10 +59,10 @@
     }
 
     function decryptMessage(key, message) {
-        let decrypted = CryptoJS.AES.decrypt(message, key); 
+        let decrypted = CryptoJS.AES.decrypt(message, key);
         return decrypted.toString(CryptoJS.enc.Utf8);
     }
-    
+
 
     function getMessage() {
         fetch("./getMessages.php", { method: "POST", body: JSON.stringify({ "reciever": "B" }) })
